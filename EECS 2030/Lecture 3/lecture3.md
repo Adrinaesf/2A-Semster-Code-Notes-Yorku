@@ -33,4 +33,17 @@
         - num be a double
         - denom be a double != 0
 
-    
+
+* Documenting: 
+    1. Start with the commenting. `` \** *\ ``. The first sentence of the documentation should be short summary of the method; this sentence appears in the constructor/method summary section. 
+    2. Add your block tags: ``@param, @return, @throws, @author`` and more. 
+    3. Post-condition: Add your `` @return `` tag and say what the function will return. 
+    4. Pre-condition: Add your `` @pre `` to add your pre-condition of that method. 
+
+**Read the slides 60-91 for java doc in Eclipse**
+
+## JUnit: 
+*  JUnit is a unit test framework in Java unittest module in Python. 
+**Read the slides for testing + implement some test cases yourself**
+
+**Studied up untill lecture slide 110, (done with the 17-Sep Slides)**

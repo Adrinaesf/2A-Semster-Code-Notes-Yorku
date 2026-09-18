@@ -4,6 +4,13 @@ public class Power {
 		// TODO Auto-generated constructor stub
 	}
 	
+
+	/**
+	 * This function takes a base value and a power, and calculates base ^ power. 
+	 * @param base
+	 * @param n
+	 * @return
+	 */
 	public static int power (int base, int n)   // assume n >= 0
 	{
 	  if(n == 0) /* base case  */
