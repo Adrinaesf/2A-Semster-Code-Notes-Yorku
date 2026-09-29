@@ -127,6 +127,8 @@ Types of statments:
         case 3: ...; break;
         default: ...; break; 
     }
+    choice can be: int, char, string
+
 * Default is there if non of the cases happen. 
 
 ## break and continue: 
@@ -139,6 +141,7 @@ Types of statments:
 1. ``while (x in condition) {...; change in x}``
 2. ``do {...; change in x} while(x in condition);``
 3. ``for(int i = 0; i <5 ; i++)``
+* Infinite loop: ``for(;;) {...; break;}`` break is needed to avoid infinite loop: 
 
 ## Increment and Decrement: 
 * prefix: 
