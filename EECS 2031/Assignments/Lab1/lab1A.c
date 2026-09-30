@@ -50,16 +50,16 @@ int main(){
     while (digit != -10000){
         // Steps 6:
         if (isDigit(ch)) {
-            printf("Character '%c' represents a digit. Sum of %d and %c is %d", ch, digit, ch, digit + (ch - '0')); 
+            printf("Character '%c' represents a digit. Sum of %d and %c is %d\n", ch, digit, ch, digit + (ch - '0')); 
         } else if (isLetter(ch)) {
-            printf("Character '%c' represent a letter", ch); 
+            printf("Character '%c' represent a letter\n", ch); 
         } else if (isOperator(ch)) {
-            printf("Character '%c' represents others", ch);
+            printf("Character '%c' represents others\n", ch);
         } else {
-            printf("Character '%c' represents others", ch);
+            printf("Character '%c' represents others\n", ch);
         }
 
-        printf(""); // creates a new line to continue the loop: 
+        printf("\n"); // creates a new line to continue the loop: 
         printf("Enter an integer and a character seperated by blank: "); 
         scanf("%d %c", &digit, &ch); // Asking for input until input is not satisfied
     }
