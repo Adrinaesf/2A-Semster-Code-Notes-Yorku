@@ -40,6 +40,7 @@ int main(){
       printf("Original function strcat(a,b) results:   %s\n", a); 
       printf("My function my_strcat(c,d) results: %s\n\n", c);
 
+      printf("\n"); 
       // Take the next two inputs
       printf("Enter the first string(with no spaces) stored in array 'a': ");
       scanf("%s",a);

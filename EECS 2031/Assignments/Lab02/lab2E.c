@@ -40,7 +40,7 @@ int main(){
       
       // Zero means both strings have the same content
       else 
-         printf("\"%s\" and \"%s\" have same content\n", a, b);
+         printf("\"%s\" and \"%s\" are same\n", a, b);
       
       
       // Now compare the same strings using our own function
@@ -53,8 +53,9 @@ int main(){
          printf("mystrcmp: \"%s\" appears later in dictionary than \"%s\"\n\n", a,b);
       
       else 
-         printf("\"%s\" and \"%s\" have same content\n\n", a,b);
+         printf("\"%s\" and \"%s\" are same \n", a,b);
 
+      printf("\n"); 
       // Ask for the next two strings
       printf("Enter the first string(with no spaces) stored in array 'a': ");
       scanf("%s",a);

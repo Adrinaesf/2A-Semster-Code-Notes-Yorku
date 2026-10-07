@@ -42,7 +42,8 @@ int main()
         
         printf("my_atoi: %d (%#o, %#X)\t%d\t%d\n",
                a, a, a, a * 2, a * a);
-
+        
+        printf("\n"); 
         printf("Enter a word of positive number and base, or 'quit': ");
         scanf("%s %d", arr, &base);
     }
@@ -78,4 +79,24 @@ int my_atoi(char c[], int base)
         i--;
     }
     return result;
+}
+
+int length(char word[]) {
+   int i = 0;
+
+   while (word[i] != '\0') {
+      i++;
+   }
+
+   return i;
+}
+
+int isQuit(char word[]) {
+   if (word[0] == 'q' && word[1] == 'u' &&
+       word[2] == 'i' && word[3] == 't' &&
+       word[4] == '\0') {
+      return 1;
+   }
+
+   return 0;
 }
