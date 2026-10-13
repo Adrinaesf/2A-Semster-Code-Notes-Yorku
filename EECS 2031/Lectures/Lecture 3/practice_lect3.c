@@ -11,7 +11,7 @@ int main() {
     // Read the array
     for (i = 0; i < N; i++) {
         for (j = 0; j < M; j++) {
-            scanf("%d", &array[i][j]);
+            scanf("%d", &array[i][j]); 
         }
     }
 
