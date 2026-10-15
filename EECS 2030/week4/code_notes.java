@@ -37,7 +37,6 @@ public class code_notes {
         }
     }
 
-
     public static void main(String[] args) {
         int[] a = {2, 4, 6, 8};
         int result = sum(a);
