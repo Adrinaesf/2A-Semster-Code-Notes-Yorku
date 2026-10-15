@@ -1,3 +1,49 @@
+# Outline: 
+1. Information hiding and encapsulation
+Explain private fields, public methods, accessors, mutators, and why an internal representation can change without changing the API.
+
+2. Constructors
+Understand default, parameterized, and copy constructors, plus constructor chaining using this(...).
+
+
+3. Immutability
+Know the five rules, why String is immutable, how StringBuilder differs, and what final does and does not guarantee.
+
+
+5. Class invariants
+Define an invariant, identify valid and invalid states, and enforce the invariant in constructors and mutator methods.
+
+
+6. Exceptions and preconditions
+Recognize common exceptions, check arguments, and understand the difference between printing an error and throwing an exception.
+
+
+7. throw and throws
+Distinguish throwing an exception object from declaring that a method may pass an exception to its caller.
+
+
+8. Call stack and propagation
+Trace how Java searches for a handler from the method where an exception occurs back through its callers.
+
+
+9. try-catch
+Determine which statements execute, which are skipped, and how execution resumes after a handler.
+
+
+10. Multiple catch blocks
+Match exceptions to handlers, put specific types before general types, and identify unhandled exceptions.
+
+11. Input loops and custom exceptions
+Understand repeated prompting, boolean loop conditions, and defining a checked exception with extends Exception.
+
+
+12. Checked and unchecked exceptions
+Know which exceptions must be caught or declared.
+
+
+13. finally
+Trace execution when no exception occurs, an exception is caught, or an exception remains unhandled.
+
 # Part 1: Information hiding and encapsulation
 ## 1. Encapsulation
 Definition: Encapsulation means grouping data (fields) and the methods that operate on that data into one class, while controlling how other code accesses it.
@@ -411,3 +457,254 @@ Rule: “Catch or Specify.”
 When a method may throw an exception, responsibility for dealing with it can be handled in two main ways:
 1. Catch and handle the exception.
 2. Specify the exception with throws, allowing responsibility to be passed to the caller.
+
+Example: 
+    void withdrawFrom(int id, double amount)
+            throws IllegalArgumentException {
+        // Method body
+    }
+
+Compare the keywords:
+* `throw`: Actually thowing an exception
+* `throws`: Declares exceptions that a method may pass to its caller.
+
+Example: 
+    void setRadius(double r) {
+        if (r < 0) {
+            throw new IllegalArgumentException("Invalid radius");
+        }
+    }
+
+Or we have: 
+    void readData() throws IOException {
+        // Code that might throw IOException
+    }
+
+**Checked versus unchecked exceptions**
+* Checked exceptions: Java requires them to be caught or declared with throws in the applicable method context. `IOException` is an example.
+    * For a checked exception, the compiler requires the method to catch it or declare it appropriately.
+
+* Unchecked exceptions: Java does not require them to be caught or declared. Examples include `IllegalArgumentException, NullPointerException, and ArithmeticException.`
+    * For an unchecked exception, a programmer can choose to let it propagate to the JVM.
+
+## 4. Catching exceptions with `try-catch`
+Definition: A `try-catch` statement lets a program detect a thrown exception and execute code to handle it.
+
+General structure: 
+    try {
+        // Statements that might throw an exception
+    }
+    catch (ExceptionType ex) {
+        // Code that handles the exception
+    }
+
+The variable ex refers to the exception object.
+
+Example: 
+    class CircleCalculator {
+        public static void main(String[] args) {
+            Circle c = new Circle();
+
+            try {
+                c.setRadius(-10);
+                double area = c.getArea();
+                System.out.println("Area: " + area);
+                c.expand(3.0);
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println(e);
+                System.out.println("Please try again");
+            }
+
+            System.out.println("After try-catch");
+        }
+    }
+
+How the program runs: 
+    try {
+        statement1;
+        statement2;
+        statement3;
+    }
+    catch (ExceptionType ex) {
+        handleException();
+    }
+
+    statement4;
+
+If none of the statements in the try block throws a matching exception:
+- statement1, statement2, and statement3 execute.
+- The catch block is skipped.
+- statement4 executes.
+
+If statement2 throws an exception of ExceptionType:
+- statement1 executes.
+- statement2 throws the exception.
+- statement3 is skipped.
+- The matching catch block executes.
+- statement4 executes afterward.
+
+
+## 5. Multiple catch blocks
+A single `try block` can have multiple `catch blocks` to handle different kinds of exceptions.
+
+    try {
+        // Code that might throw exceptions
+    }
+    catch (FileNotFoundException e) {
+        // Handle missing file
+    }
+    catch (IOException e) {
+        // Handle other I/O errors
+    }
+    catch (Exception e) {
+        // Handle other exceptions
+    }
+
+How does Java choose the correct one?
+* Java checks the catch clauses in order and executes the first matching handler.
+    * Suppose the code throws a FileNotFoundException. The first handler matches, so it executes.
+    * If the code throws another kind of IOException, the first handler does not match, but the second one does.
+    * If it throws an exception that matches none of the specific handlers but is covered by Exception, the last handler can catch it.
+
+**Important: order matters**
+A subclass of an exception is also an instance of its superclass.
+
+For example, `FileNotFoundException` is a subclass of `IOException`. Therefore, this ordering is correct:
+
+    catch (FileNotFoundException e) {
+        // Handle specific exception
+    }
+    catch (IOException e) {
+        // Handle general I/O exception
+    }
+
+But reversing them causes a compilation error. 
+
+What if the exception matches none of the handlers?
+If neither handler matches, neither catch block executes. The exception propagates to the caller, unless another suitable handler is found higher up the call stack.
+
+Example: **Catching an array-index exception**
+    
+    int[] data = {7, 3, 5, 6, 8, 9};
+    try {
+        System.out.println(data[-10]);
+    }
+    catch (ArrayIndexOutOfBoundsException e) {
+        System.out.println(e);
+        System.out.println("Please try again");
+    }
+
+## 6. Using try-catch to keep prompting the user: 
+One of the final examples combines exception handling with a loop. The goal is to keep asking the user for a radius until a valid one is provided.
+
+    Scanner input = new Scanner(System.in);
+    boolean validRadius = false;
+    while (!validRadius) {
+        System.out.println("Enter a radius:");
+        double r = input.nextDouble();
+        Circle c = new Circle();
+
+        try {
+            c.setRadius(r);
+            validRadius = true; 
+
+            System.out.println("Circle with radius " + r);
+            System.out.println("has area: " + c.getArea());
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println("Try again!");
+            
+        }
+    }
+    System.out.println("Bye!");
+
+## 7. Writing your own exception class
+Sometimes the standard Java exception classes do not express the exact problem you want to represent.
+
+Example: `NegativeRadiusException`
+
+    public class NegativeRadiusException extends Exception {
+        public NegativeRadiusException(String message) {
+            super(message);
+        }
+    }
+
+We can use it as: 
+
+    void setRadius(double r) throws NegativeRadiusException {
+        if (r < 0) {
+            throw new NegativeRadiusException("Invalid radius");
+        } else {
+            radius = r;
+        }
+    }
+
+# Part 5: Checked exceptions and finally: 
+* Checked exceptions: 
+    * Must be caught or declared with throws under Java's exception rules.
+    * Usually represent conditions a program may need to recover from.
+    * Example: `IOException`, `FileNotFoundException`, `SocketException`
+
+* Unchecked: 
+    * Do not have to be caught or declared.
+    * Often represent programming errors or invalid operations.
+    * Example: `IllegalArgumentException`, `NullPointerException`, `IllegalStateException`
+
+For example: 
+The following method does not have to declare `IllegalArgumentException` with `throws`:
+
+    void setRadius(double r) {
+        if (r < 0) {
+            throw new IllegalArgumentException("Invalid radius");
+        }
+    }
+
+**Even though the method explicitly throws an exception, it is not required to declare it because IllegalArgumentException is unchecked.**
+
+## 1. The finally clause
+Definition: A finally block contains code that normally runs after a try block and any applicable catch block, whether or not an exception occurred.
+
+General structure:
+
+    try {
+        statement1;
+        statement2;
+    }
+    catch (Exception e) {
+        handleException();
+    }
+    finally {
+        statement3;
+    }
+    statement4;
+
+Three different cases that can happen: 
+- Case A: No exception occurs
+    Execution proceeds in this order:
+    1. statement1
+    2. statement2
+    3. Skip the catch block.
+    4. Execute statement3 in finally.
+    5. Execute statement4.
+
+- Case B: A matching exception is caught
+    Suppose statement2 throws an exception that matches the catch block.
+    1. statement1 executes.
+    2. statement2 throws the exception.
+    3. Remaining statements in the try block are skipped.
+    4. The matching catch block executes.
+    5. statement3 executes in finally.
+    6. Execution continues to statement4.
+
+- Case C: An exception is not caught
+    Suppose statement2 throws an exception that does not match any catch block.
+    1. statement1 executes.
+    2. statement2 throws the exception.
+    3. Remaining statements in the try block are skipped.
+    4. No catch block handles the exception.
+    5. The finally block normally executes.
+    6. The exception continues propagating, so statement4 is not reached if the exception remains unhandled.
+
+Why is finally useful?
+It is commonly used for cleanup operations that should happen regardless of whether the main operation succeeds or fails.
