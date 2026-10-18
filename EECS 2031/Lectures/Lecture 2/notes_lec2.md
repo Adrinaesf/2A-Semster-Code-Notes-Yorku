@@ -119,7 +119,7 @@ Types of statments:
     * expr3 happens as the else case.  
 
 ## If and switch statments: 
-* we know if :)
+* we know if :
 * switch statments: 
     * switch(choice) {
         case 1: ...; break; 
