@@ -71,19 +71,36 @@ int main(){
 // Our version of strcmp()
 int my_strcmp(char x[], char y[]){
    int i = 0;
+   int j = 0; 
+
 
    // Compare the strings character by character
-   while (x[i] != '\0' && y[i] != '\0'){
-      
-      // The first different character determines the result
-      if (x[i] != y[i]){
-         return x[i] - y[i];
-      }
+   // this would work for the same length: 
 
-      i++;
+
+   while (x[i] != '\0' && y[j] != '\0'){
+      if (x[i] < y[j]){
+         return -1; 
+      } else if (x[i] > y[j]){
+         return 1; 
+      } else if (x[i] == y[j]){
+         i++; 
+         j++; 
+      }
    }
 
-   // If all compared characters were equal, this handles
-   // equal strings or the case where one string is shorter
-   return x[i] - y[i];
+   if (strlen(x) == strlen(y)){
+      return 0; 
+   }
+
+   // Now above will cover cases with same length, and cases with different length and different values. 
+   // but what about: abc, abcd   OR.   abcd, abc
+   // the one with higher num of elements would be bigger since \0  is smaller than any value. 
+   
+   if (strlen(x) < strlen(y)){
+      return -1; 
+   } else {
+      return 1; 
+   }
+
 }

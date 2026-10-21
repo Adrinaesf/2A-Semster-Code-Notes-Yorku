@@ -67,7 +67,9 @@ int main ()
         // if num is prime:
         prime_num[prime_index] = arr[i]; 
         prime_index++; 
-    } else if (arr[i] % 2 == 0){
+    } 
+    
+    if (arr[i] % 2 == 0) {
         // if num is even:
         even_num[even_index] = arr[i]; 
         even_index++; 

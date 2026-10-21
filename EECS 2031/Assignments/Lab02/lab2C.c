@@ -17,6 +17,38 @@
 
 */
 
+/*
+    1. We firts need to think about what we need to save and the functions we need. 
+    2. We need ay_atoi, main, power
+    
+    In main: 
+    1. We need to ask the user for input: char words[], int base. 
+    2. we then do my_atoi(words, base); 
+    3. we print the result
+
+    Helper int power(base, power): 
+    int power(base, power){
+        res = 1; 
+        for (int i = 0; i < power; i++){
+            res *= base; 
+        }
+        return res
+    }
+
+    In my_atoi: 
+    1. we need to have a int = j which starts at len(c) - 1, res = 0
+    2. we then do: 
+
+    for (int i = 0; i < len(c); i++){
+        digit = word[i] - '0' 
+        res += (digit * power(10, j)); 
+        j--; 
+}
+*/
+
+
+
+
 // function decleartions
 int length(char word[]);
 int isQuit(char word[]);
@@ -100,3 +132,4 @@ int isQuit(char word[]) {
 
    return 0;
 }
+

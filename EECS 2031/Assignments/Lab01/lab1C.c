@@ -39,45 +39,13 @@ int main(){
     int c; 
     int other_count = 0; 
     int digit_count[10] = {0}; // making an array [0, 0, ..., 0]
-
+    int digit = 0; 
     c = getchar(); 
 
     while (c != EOF){ // no end of file yet
         if (isDigit(c)){
-            int char_value = c - '0'; 
-            switch(char_value){
-                case 0: 
-                    digit_count[0]++; 
-                    break; 
-                case 1: 
-                    digit_count[1]++; 
-                    break;  
-                case 2: 
-                    digit_count[2]++; 
-                    break;  
-                case 3: 
-                    digit_count[3]++; 
-                    break; 
-                case 4: 
-                    digit_count[4]++; 
-                    break; 
-                case 5: 
-                    digit_count[5]++; 
-                    break; 
-                case 6: 
-                    digit_count[6]++; 
-                    break;  
-                case 7: 
-                    digit_count[7]++; 
-                    break; 
-                case 8: 
-                    digit_count[8]++; 
-                    break; 
-                case 9: 
-                    digit_count[9]++; 
-                    break;
-            }
-
+            digit = c - '0'; 
+            digit_count[digit]++; 
         } else {
             other_count++; 
         }

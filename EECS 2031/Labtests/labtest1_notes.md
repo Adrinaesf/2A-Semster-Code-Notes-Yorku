@@ -159,6 +159,96 @@ Or another way to do it is by:
     - Example: `char str[100] = UNICEF` -> `strlen(str) = 6`
 
 
+# Lecture 4: 
+## Bitwise Operations: 
+- and: `&`, 
+- or: `|`, 
+- xor: `^`, 
+- complement: `~`,  
+- shift left: `<<`, and right: `>>`
+
+
+## Shifting: 
+Example: 
+
+    int x = 13;       /* binary: 1101 */
+    printf("%d\n", x << 2);  /* 52 */
+    printf("%d\n", x >> 2);  /* 3 */
+
+Important to note: 
+1. << and >> would not change the value in x. 
+2. But <<= and >>= also will assign to x. 
+3. x << 2 + 1 is doing x << 3 since we first do add
+4. We have no shifting right for negative num
+
+
+## **Masking and flags**
+- Turning on a bit: 
+    * Example
+    1. Imagine we want to see if digit 0-9 exist in our num of not. Ex: 234 has only digits 234. 
+    2. We can define a short value called *flag* with 16 bits 0000 0000 0000 0000
+    3. We only need 10 bit which we have. We see what digit we have
+    4. For the digit we have, we turn on (0->1) the bit at that place of our flag. Example: digit = 5, we turn on the fifth digit. 
+    
+    Steps: 
+    1. Save a short flag = 0; and int c for input:
+    2. now read each char using get char in a while loop. 
+    3. now we check if it's a digit, if so we find its value. 
+    4. if it's a digit we need to turn on the flags bit on that digit. 
+    5. find the digit value of char: digit = 'c' - '0'
+    
+    * Turning on a bit: 
+    1. shit 0000 0000 0000 0001 by the bit num to the left: That is 1 << digit
+    2. Now imagine dig = 3 so we have mask = 0000 0000 0000 1000
+    3. Now we want to turn on the flags so we do bit wise operation: 
+    4. flags = flags | mask. 
+
+- Checking if a bit is on or not. 
+    1. We have to do this for 10 times since we have 10 bits to check. 
+    2. We start with teh rightmost digit: 
+    3. We can make a mask at that digit and do & operation with num. 
+    4. Define mask = (1 << i) 
+    5. for example at index 2 we have: 0000 0000 0000 0100 
+    6. Now we do num & mask -> if 3 exist, then we are giving 0000 0000 0000 0100 
+    7. Otherwise we get 0000 0000 0000 0000, so if result is zero, the digit does not exist. 
+
+    Code: 
+        short maks = 0; 
+        for (int i = 0; i < 10; i++){
+            mask = (1 << i); 
+            flags = flags & mask; 
+
+            if (flags > 0){
+                return true; 
+            } else {
+                return false; 
+            }
+        }
+
+- Turning off a bit: 
+    1. Imgine we have 0000 0000 0001 0010
+    2. We want to turn of the digit at index 1. 
+    3. Now we can use and with negation. 
+    4. we can do: ~(0000 0000 0000 0001) and we get (1111 1111 1111 1110)
+    5. and now we turn it off using flags = flags & mask. 
+
+
+- Toggling the digits of a num: 
+    1. Imagine we ahev a num 0000 0000 0001 0010
+    2. We want to chnge the 1s to 0s and 0s to 1s
+    3. We define a loop for that length, and each time we do: 
+    4. mask = (1 << i), and then we do xor
+
+    for (int i = 0; i < 16; i++){
+        mask = 1 << i
+        flags = flags ^ mask
+    }
+
+
+
+
+
+
 
 
 
